@@ -16,8 +16,8 @@ form.addEventListener("submit", (event) => {
   // node.js에서 GET 요청으로 원격 이미지 가져오기
   axios
     .get("http://localhost:8882/login", {
-      email: email.value,
-      password: password.value,
+      email: email,
+      password: password,
     })
     .then((response) => {
       console.log(response);
