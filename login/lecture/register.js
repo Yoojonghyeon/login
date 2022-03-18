@@ -38,17 +38,17 @@
 // *\. = . 이 반드시 존재
 // *@ = @가 반드시 존재
 // [a-zA-Z]{2,3} 알파벳문자 2개나 3개 존재
-const regEmail =
-  /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+// const regEmail =
+//   /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
-const regPassword = /([\w\d~1@#$%^&*()+|=]{8,12})/;
+// const regPassword = /([\w\d~1@#$%^&*()+|=]{8,12})/;
 
 const form = document.querySelector(".register-form");
 
 //click 이벤트를 쓰지 않고 submit 을 눌렀을때만 발생하는 submit 사용
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  console.log(event);
+  //console.log(event);
 
   // 이메일 비밀번호 비밀번호확인 닉네임 받아오기
   const target = event.currentTarget;
@@ -56,14 +56,41 @@ form.addEventListener("submit", (event) => {
   const password = target[1].value;
   const passwordConfirm = target[2].value;
   const nickname = target[3].value;
-  console.log(target);
+  const err = document.querySelector(".err");
   //유효성 검사
+  if (
+    email.length > 0 &&
+    password.length > 0 &&
+    password === passwordConfirm &&
+    nickname.length > 0
+  ) {
+    err.textContent = "";
 
-  if (regexEmail.test(email)) {
-    console.log(email);
-  }
+    //서버로 회원가입 요청을 한다.
+    axios
+      .post("http://localhost:8882/register", {
+        email: email,
+        password: password,
+        nickname: nickname,
+      })
+      .then((response) => {
+        //console.log(response);
+        const success = response.data.success;
+        if (success == true) {
+        }
+        // 로그인 창으로 이동
+        console.log("이거슨 Success " + success);
 
-  if (regPassword.test(password)) {
-    console.log(password);
+        ("http://localhost:8882/login");
+      })
+      .catch((error) => {
+        console.log(error);
+        const message = error.response.data.message;
+        console.log(message);
+        err.textContent = message;
+      });
+  } else {
+    err.textContent = "입력값을 확인해 주세요";
+    // 실패
   }
 });
