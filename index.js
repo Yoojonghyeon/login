@@ -14,7 +14,13 @@ app.use(helmet());
 app.use(cors());
 
 let id = 0;
-const users = [];
+const users = [
+  {
+    email: "justin8491@naver.com",
+    password: "1234",
+    nickname: "justin",
+  },
+];
 
 app.get("/", (req, res) => {
   res.send("로그인 회원가입 연습");

@@ -13,10 +13,11 @@ form.addEventListener("submit", (event) => {
   const password = target[1].value;
   const err = document.querySelector(".err");
 
-  axios({
-    method: "get",
-    url: "http://localhost:8882/login",
-  })
+  axios
+    .post("http://localhost:8882/login", {
+      email,
+      password,
+    })
     .then((res) => {
       console.log(res.data);
     })
