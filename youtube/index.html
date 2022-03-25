@@ -12,6 +12,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Axios CDN -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- Font Awesome Kit -->
     <script
       src="https://kit.fontawesome.com/d350cb3dc1.js"
@@ -37,22 +39,87 @@
       header {
         padding: 30px;
         display: flex;
+        -webkit-animation: focus-in-contract-bck 1s
+          cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        animation: focus-in-contract-bck 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+          both;
+        /* animation: vibration 1s linear infinite; */
       }
 
       header > h1 {
         display: flex;
-        font-size: 64px;
+        font-size: 128px;
       }
 
-      .search__textarea {
+      header::after {
+        animation: cubic-bezier(0.075, 0.82, 0.165, 1);
+      }
+
+      .search {
+        padding-bottom: 50px;
+      }
+
+      .search__word {
+        text-align: center;
+        font-size: 20px;
         width: 300px;
         height: 50px;
-        margin-left: 30px;
+        margin-left: 100px;
+
+        background-color: #d0b6e2;
+        border-bottom: solid rgb(77, 28, 122);
+        cursor: auto;
       }
 
       ::placeholder {
         font-size: large;
         text-align: center;
+      }
+
+      .submit {
+        width: 100px;
+        height: 55px;
+        border-radius: 50px;
+        background-color: #744992;
+      }
+
+      hr {
+        width: 80%;
+      }
+
+      @-webkit-keyframes focus-in-contract-bck {
+        0% {
+          letter-spacing: 1em;
+          -webkit-transform: translateZ(300px);
+          transform: translateZ(300px);
+          -webkit-filter: blur(12px);
+          filter: blur(12px);
+          opacity: 0;
+        }
+        100% {
+          -webkit-transform: translateZ(12px);
+          transform: translateZ(12px);
+          -webkit-filter: blur(0);
+          filter: blur(0);
+          opacity: 1;
+        }
+      }
+      @keyframes focus-in-contract-bck {
+        0% {
+          letter-spacing: 1em;
+          -webkit-transform: translateZ(300px);
+          transform: translateZ(300px);
+          -webkit-filter: blur(12px);
+          filter: blur(12px);
+          opacity: 0;
+        }
+        100% {
+          -webkit-transform: translateZ(12px);
+          transform: translateZ(12px);
+          -webkit-filter: blur(0);
+          filter: blur(0);
+          opacity: 1;
+        }
       }
     </style>
     <title>Youtube_Main</title>
@@ -63,14 +130,19 @@
         <h1>Youtube</h1>
       </header>
 
-      <div class="search">
+      <form class="search">
         <input
-          class="search__textarea"
+          class="search__word"
           type="text"
           placeholder="검색어를 입력해주세요."
         />
-        <button class="search__Btn submit" type="submit">검색</button>
-      </div>
+        <button class="submit" type="submit">검색</button><br />
+      </form>
+      <hr />
+      <iframe
+        class="video-list"
+        src="https://www.googleapis.com/youtube/v3/search"
+      ></iframe>
     </div>
   </body>
 </html>
