@@ -1,6 +1,5 @@
 /* Youtube API */
 const YOUTUBE_API = "AIzaSyDU2mRG2DV9eKUACzHUJ6w55LrhGurVeXk";
-let videoId, channelId;
 // 페이지 구성
 //       - 메인페이지(상단 검색창 + 영상리스트) t
 //       - 검색창 마크업 t
@@ -19,10 +18,16 @@ search.addEventListener("submit", (event) => {
 
   const video = [];
 
+  axios.defaults.baseURL = "https://www.googleapis.com/youtube/v3";
+
   axios
-    .get("https://www.googleapis.com/youtube/v3/search", {
-      searchWord,
-      YOUTUBE_API,
+    .get("/search", {
+      key: YOUTUBE_API,
+      part: "snippet",
+      q: searchWord,
+      maxResults: 10,
+      type: "video",
+      videoDuration: "long",
     })
     .then((res) => {
       console.log(res.data);
