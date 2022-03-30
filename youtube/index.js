@@ -22,12 +22,12 @@ search.addEventListener("submit", (event) => {
 
   axios
     .get("/search", {
-      key: YOUTUBE_API,
-      part: "snippet",
-      q: searchWord,
-      maxResults: 10,
+      key: YOUTUBE_API, //발급 키 string
+      part: "snippet", // 관련 영상
+      q: searchWord, // 검색어
+      maxResults: 10, //영상 최대 개수
       type: "video",
-      videoDuration: "long",
+      videoDuration: "long", //시간의 길이 hmm
     })
     .then((res) => {
       console.log(res.data);
