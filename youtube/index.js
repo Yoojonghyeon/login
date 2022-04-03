@@ -1,5 +1,7 @@
+/* Search URL */
+const SEARCH_URL = "https://www.googleapis.com/youtube/v3/search?";
 /* Youtube API */
-const YOUTUBE_API = "AIzaSyDU2mRG2DV9eKUACzHUJ6w55LrhGurVeXk";
+const YOUTUBE_API = "AIzaSyDp1xf-c4d1doTJq7xp0pVpG9J7gcE1-wc";
 /* ------------------------------ */
 
 // 페이지 구성
@@ -19,10 +21,10 @@ search.addEventListener("submit", (event) => {
   const target = event.currentTarget;
   const searchWord = target[0].value; //검색어 값
   const data = {
-    key: YOUTUBE_API, //발급 키 string
+    key: "AIzaSyDp1xf-c4d1doTJq7xp0pVpG9J7gcE1-wc", //발급 키 string
     part: "snippet", // 관련 영상
     q: searchWord, // 검색어
-    maxResults: 10, //영상 최대 개수
+    maxResults: 5, //영상 최대 개수
     type: "video",
     videoDuration: "long", //시간의 길이 hmm
   };
@@ -30,14 +32,14 @@ search.addEventListener("submit", (event) => {
 
   //       - 검색한 단어를 API로 비동기 호출
   axios
-    .get("https://www.googleapis.com/youtube/v3/search", { data })
+    .get(SEARCH_URL, { data })
     .then((res) => {
-      //console.log(res.data.items);
+      console.log(res.data.items);
       const item = res.data.items;
       video.push(item);
       console.log(video);
     })
     .catch((err) => {
-      console.log(err.response.data.error.message);
+      console.log(err.response); //.data.error.message
     });
 });
