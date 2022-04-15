@@ -31,8 +31,10 @@ search.addEventListener("submit", (event) => {
   const video = []; //검색한 영상 담을 그릇
 
   //       - 검색한 단어를 API로 비동기 호출
+  axios.defaults.baseURL = "https://www.googleapis.com/youtube/v3";
+
   axios
-    .get("https://www.googleapis.com/youtube/v3/search?", { data })
+    .get("/search?", { data })
     .then((res) => {
       console.log(res.data.items);
       const item = res.data.items;
