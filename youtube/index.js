@@ -38,8 +38,10 @@ search.addEventListener("submit", (event) => {
       const item = res.data.items;
       video.push(item);
       console.log(video);
+      thumbnails = res.data.item.snippet.thumbnails.medium.url;
+      title.innerText = res.data.item.snippet.title;
     })
     .catch((err) => {
-      console.log(err.response); //.data.error.message
+      console.log(err.response.data.error.message); //.data.error.message
     });
 });
